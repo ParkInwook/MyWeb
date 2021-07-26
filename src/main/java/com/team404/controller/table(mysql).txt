@@ -1,0 +1,55 @@
+#=========================게시글 테이블===========================
+# oracle의 number -> int
+# oracle의 varchar2 -> varchar
+# oracle의 date -> timestamp
+# 시퀀스 없음 -> auto_increment
+
+create table FREEBOARD(
+    bno int(10) primary key auto_increment,
+    title varchar(200) not null,
+    writer varchar(50) not null,
+    content varchar(2000),
+    regdate timestamp default current_timestamp,
+    updatedate timestamp default current_timestamp
+);
+
+
+# =========================게시글 댓글============================
+create table FREEREPLY(
+    bno int(10), #-- 글번호 FK
+    rno int(10) primary key auto_increment,  #-- 댓글번호 PK
+    reply varchar(1000), #-- 내용
+    replyId varchar(50), #-- 글쓴이
+    replyPw varchar(50), #-- 비밀번호
+    replydate timestamp default current_timestamp, #--등록일
+    updatedate timestamp default current_timestamp #--수정일
+);
+
+# ==========================회원=================================
+create table USERS(
+    userId varchar(50) primary key not null,
+    userPw varchar(50) not null,
+    userName varchar(50) not null,
+    userPhone1 varchar(50),
+    userPhone2 varchar(50),
+    userEmail1 varchar(50),
+    userEmail2 varchar(50),
+    addrBasic varchar(300),
+    addrDetail varchar(300),
+    addrZipNum varchar(50),
+    regdate timestamp default current_timestamp
+);
+
+
+#=============================이미지 게시글====================================
+#--pk, 작성자, 내용, 이미지정보(업로드된경로, 변경된파일이름, 실제파일이름), 등록일
+create table SNSBOARD(
+    bno int(10) primary key auto_increment not null,
+    writer varchar(50) not null,
+    content varchar(2000),
+    uploadpath varchar(200) not null,
+    fileloca varchar(50) not null,
+    filename varchar(50) not null,
+    filerealname varchar(50) not null,
+    regdate timestamp default current_timestamp
+);
